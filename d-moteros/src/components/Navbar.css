@@ -1,0 +1,34 @@
+@reference "../styles.css";
+
+/* Navbar */
+.navbar {
+    @apply fixed top-0 left-0 w-full z-50 transition-all duration-300;
+}
+
+.navbar.scrolled {
+    @apply bg-zinc-950/90 backdrop-blur-md shadow-lg py-4;
+}
+
+.navbar.transparent {
+    @apply bg-transparent py-6;
+}
+
+.navbar-container {
+    @apply container mx-auto px-6 flex justify-between items-center;
+}
+
+.navbar-logo {
+    @apply text-2xl font-black text-white tracking-tighter uppercase flex items-center gap-2;
+}
+
+.navbar-logo-highlight {
+    @apply text-red-500;
+}
+
+.navbar-menu {
+    @apply flex space-x-8;
+}
+
+.navbar-link {
+    @apply text-white font-medium hover:text-red-500 transition-colors;
+}

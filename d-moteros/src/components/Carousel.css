@@ -1,0 +1,88 @@
+@reference "../styles.css";
+
+/* Carousel */
+.carousel-section {
+    @apply py-24 bg-zinc-950 text-white overflow-hidden;
+}
+
+.carousel-container {
+    @apply container mx-auto px-4;
+}
+
+.carousel-header {
+    @apply text-center mb-16;
+}
+
+.carousel-title {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+}
+
+.carousel-divider {
+    @apply w-24 h-1 bg-red-500 mx-auto rounded-full;
+}
+
+.carousel-3d-wrapper {
+    @apply relative w-full max-w-7xl mx-auto flex justify-center items-center;
+    height: 450px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+    .carousel-3d-wrapper {
+        height: 550px;
+    }
+}
+
+.carousel-item {
+    @apply absolute w-60 md:w-80 h-80 md:h-[450px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-700;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.carousel-item-img {
+    @apply w-full h-full object-cover object-center;
+}
+
+.carousel-item-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end transition-opacity duration-500;
+}
+
+.carousel-item-overlay.active {
+    @apply opacity-100;
+}
+
+.carousel-item-overlay.inactive {
+    @apply opacity-0 hover:opacity-50;
+}
+
+.carousel-item-title {
+    @apply text-3xl font-black text-white p-8 tracking-wide;
+}
+
+.carousel-controls {
+    @apply flex justify-center items-center gap-8 mt-12;
+}
+
+.carousel-btn {
+    @apply bg-zinc-800 hover:bg-red-500 text-white p-4 rounded-full transition-all cursor-pointer shadow-lg hover:shadow-red-500/50;
+}
+
+.carousel-btn-icon {
+    @apply w-6 h-6;
+}
+
+.carousel-dots {
+    @apply flex justify-center gap-3;
+}
+
+.carousel-dot {
+    @apply h-3 rounded-full transition-all duration-300 cursor-pointer;
+}
+
+.carousel-dot.active {
+    @apply w-10 bg-red-500;
+}
+
+.carousel-dot.inactive {
+    @apply w-3 bg-zinc-700 hover:bg-zinc-500;
+}
