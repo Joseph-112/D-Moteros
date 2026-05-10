@@ -60,11 +60,11 @@
 }
 
 .carousel-controls {
-    @apply flex justify-center items-center gap-8 mt-12;
+    @apply flex justify-center items-center gap-4 md:gap-8 mt-8 md:mt-12;
 }
 
 .carousel-btn {
-    @apply bg-zinc-800 hover:bg-red-500 text-white p-4 rounded-full transition-all cursor-pointer shadow-lg hover:shadow-red-500/50;
+    @apply bg-zinc-800 hover:bg-red-500 text-white p-3 md:p-4 rounded-full transition-all cursor-pointer shadow-lg hover:shadow-red-500/50;
 }
 
 .carousel-btn-icon {

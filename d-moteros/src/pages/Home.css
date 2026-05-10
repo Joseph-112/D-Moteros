@@ -2,5 +2,5 @@
 
 /* Layout */
 .home-layout {
-  @apply bg-zinc-950 min-h-screen font-sans selection:bg-orange-500 selection:text-white;
+  @apply bg-zinc-950 min-h-[100dvh] font-sans selection:bg-orange-500 selection:text-white;
 }

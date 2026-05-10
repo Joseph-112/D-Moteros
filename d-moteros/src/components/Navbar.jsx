@@ -3,6 +3,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -12,17 +13,44 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const toggleMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : 'transparent'}`}>
-            <div className="navbar-container">
+            <div className="navbar-container relative">
                 <a href="#" className="navbar-logo">
                     <span className="navbar-logo-highlight">D'</span>Moteros
                 </a>
-                <ul className="navbar-menu">
+                
+                {/* Desktop Menu */}
+                <ul className="navbar-menu hidden md:flex">
                     <li><a href="#" className="navbar-link">Inicio</a></li>
                     <li><a href="#" className="navbar-link">Colecciones</a></li>
                 </ul>
+
+                {/* Mobile Menu Button */}
+                <button className="md:hidden text-white hover:text-red-500 transition-colors cursor-pointer" onClick={toggleMenu} aria-label="Abrir menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
+                        {isMobileMenuOpen ? (
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        ) : (
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                        )}
+                    </svg>
+                </button>
             </div>
+
+            {/* Mobile Menu Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-zinc-950/95 backdrop-blur-md absolute top-full left-0 w-full shadow-lg border-t border-zinc-800">
+                    <ul className="flex flex-col p-6 space-y-4 text-center">
+                        <li><a href="#" className="navbar-link block text-lg font-bold" onClick={toggleMenu}>Inicio</a></li>
+                        <li><a href="#" className="navbar-link block text-lg font-bold" onClick={toggleMenu}>Colecciones</a></li>
+                    </ul>
+                </div>
+            )}
         </nav>
     );
 };
