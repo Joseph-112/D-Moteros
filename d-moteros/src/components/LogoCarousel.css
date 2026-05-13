@@ -1,0 +1,33 @@
+@reference "../styles.css";
+
+.logo-carousel {
+    @apply w-full overflow-hidden bg-black py-10 border-y flex;
+}
+
+.logo-carousel-track {
+    @apply flex items-center;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+}
+
+.logo-carousel-group {
+    @apply flex items-center justify-around shrink-0;
+    gap: 4rem;
+    padding-right: 4rem;
+    /* Matches the gap so spacing is consistent when looping */
+}
+
+.logo-item {
+    @apply h-12 md:h-16 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Translate exactly half of the track (which contains 4 groups, so 2 groups) */
+        transform: translateX(-50%);
+    }
+}
