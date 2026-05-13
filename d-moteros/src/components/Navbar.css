@@ -26,9 +26,39 @@
 }
 
 .navbar-menu {
-    @apply flex space-x-8;
+    @apply hidden md:flex space-x-8;
 }
 
 .navbar-link {
     @apply text-white font-medium hover:text-red-500 transition-colors;
+}
+
+.navbar-logo-img {
+    @apply h-20 w-auto object-contain; /* Increased logo size */
+}
+
+/* Mobile Menu Overlay */
+.navbar-mobile-overlay {
+    @apply md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out;
+}
+
+.navbar-mobile-overlay.open {
+    @apply opacity-100 pointer-events-auto;
+}
+
+/* Mobile Menu Sidebar */
+.navbar-mobile-menu {
+    @apply md:hidden fixed top-0 right-0 h-screen w-64 bg-zinc-950/95 backdrop-blur-xl shadow-2xl border-l border-zinc-800 z-40 transform translate-x-full transition-transform duration-500 ease-in-out pt-24;
+}
+
+.navbar-mobile-menu.open {
+    @apply translate-x-0;
+}
+
+.navbar-mobile-menu-list {
+    @apply flex flex-col p-8 space-y-6 text-right;
+}
+
+.navbar-mobile-link {
+    @apply block text-xl font-bold text-white hover:text-red-500 transition-colors;
 }

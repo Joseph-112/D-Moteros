@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logo from '../assets/LandingPage/logo-2.PNG';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -21,11 +22,11 @@ const Navbar = () => {
         <nav className={`navbar ${isScrolled ? 'scrolled' : 'transparent'}`}>
             <div className="navbar-container relative">
                 <a href="#" className="navbar-logo">
-                    <span className="navbar-logo-highlight">D'</span>Moteros
+                    <img src={logo} alt="D'Moteros Logo" className="navbar-logo-img" />
                 </a>
                 
                 {/* Desktop Menu */}
-                <ul className="navbar-menu hidden md:flex">
+                <ul className="navbar-menu">
                     <li><a href="#" className="navbar-link">Inicio</a></li>
                     <li><a href="#" className="navbar-link">Colecciones</a></li>
                 </ul>
@@ -42,15 +43,19 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Menu Dropdown */}
-            {isMobileMenuOpen && (
-                <div className="md:hidden bg-zinc-950/95 backdrop-blur-md absolute top-full left-0 w-full shadow-lg border-t border-zinc-800">
-                    <ul className="flex flex-col p-6 space-y-4 text-center">
-                        <li><a href="#" className="navbar-link block text-lg font-bold" onClick={toggleMenu}>Inicio</a></li>
-                        <li><a href="#" className="navbar-link block text-lg font-bold" onClick={toggleMenu}>Colecciones</a></li>
-                    </ul>
-                </div>
-            )}
+            {/* Mobile Menu Overlay */}
+            <div 
+                className={`navbar-mobile-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+                onClick={toggleMenu}
+            ></div>
+
+            {/* Mobile Menu Sidebar */}
+            <div className={`navbar-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                <ul className="navbar-mobile-menu-list">
+                    <li><a href="#" className="navbar-mobile-link" onClick={toggleMenu}>Inicio</a></li>
+                    <li><a href="#" className="navbar-mobile-link" onClick={toggleMenu}>Colecciones</a></li>
+                </ul>
+            </div>
         </nav>
     );
 };

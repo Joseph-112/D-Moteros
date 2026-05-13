@@ -30,7 +30,13 @@
 }
 
 .footer-social-icon {
-    @apply w-10 h-10 rounded-full bg-zinc-200 text-black flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors cursor-pointer;
+    @apply w-10 h-10 rounded-full bg-transparent border-2 border-zinc-300 text-black flex items-center justify-center transition-colors cursor-pointer;
+}
+
+.footer-social-icon:hover {
+    background-color: #C20600;
+    border-color: #C20600;
+    color: white;
 }
 
 .footer-col-title {

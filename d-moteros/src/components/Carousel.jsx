@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import './Carousel.css';
-import img1 from '../assets/Carousel/img1.png';
-import img2 from '../assets/Carousel/img2.png';
-import img3 from '../assets/Carousel/img3.png';
-import img4 from '../assets/Carousel/img4.png';
-import img5 from '../assets/Carousel/img5.png';
+import img1 from '../assets/Carousel/producto-1-sinner-thumb.avif';
+import img2 from '../assets/Carousel/producto-2-skullface-thumb.avif';
+import img3 from '../assets/Carousel/producto-2-skullface-front-thumb.avif';
+import img4 from '../assets/Carousel/producto-3-gothic-red-thumb.avif';
+import img5 from '../assets/Carousel/producto-3-gothic-red-front-thumb.avif';
 
 const Carousel = () => {
     const images = [
-        { id: 1, url: img1, title: 'Estilo Urbano' },
-        { id: 2, url: img2, title: 'Cafe Racer' },
-        { id: 3, url: img3, title: 'Vintage' },
-        { id: 4, url: img4, title: 'Accesorios' },
-        { id: 5, url: img5, title: 'Edición Limitada' }
+        { id: 1, url: img1, title: 'Sinner' },
+        { id: 2, url: img2, title: 'Skullface' },
+        { id: 3, url: img3, title: 'Skullface' },
+        { id: 4, url: img4, title: 'Gothic red' },
+        { id: 5, url: img5, title: 'Gothic red' }
     ];
 
     const [currentIndex, setCurrentIndex] = useState(1);
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -25,15 +27,45 @@ const Carousel = () => {
         setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        
+        if (isLeftSwipe) {
+            nextSlide();
+        } else if (isRightSwipe) {
+            prevSlide();
+        }
+    };
+
     return (
-        <section className="carousel-section">
+        <section className="carousel-section" style={{ '--bg-image': `url(${images[currentIndex].url})` }}>
             <div className="carousel-container">
                 <div className="carousel-header">
-                    <h2 className="carousel-title">Nuestro Estilo</h2>
+                    <h2 className="carousel-title">Nuestra nueva colección</h2>
                     <div className="carousel-divider"></div>
                 </div>
 
-                <div className="carousel-3d-wrapper">
+                <div 
+                    className="carousel-3d-wrapper"
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                >
                     {images.map((img, index) => {
                         let offset = index - currentIndex;
 
@@ -54,13 +86,13 @@ const Carousel = () => {
                         return (
                             <div
                                 key={img.id}
-                                className="carousel-item"
+                                className={`carousel-item ${isActive ? 'active' : ''} ${opacity === 0 ? 'hidden-item' : ''}`.trim()}
                                 style={{
-                                    transform: `translateX(${translateX}%) translateZ(${translateZ}px) rotateY(${rotateY}deg)`,
-                                    zIndex: zIndex,
-                                    opacity: opacity,
-                                    boxShadow: isActive ? '0 25px 50px -12px rgba(184, 11, 11, 0.5)' : '0 10px 30px -10px rgba(0,0,0,0.8)',
-                                    pointerEvents: opacity === 0 ? 'none' : 'auto'
+                                    '--carousel-x': `${translateX}%`,
+                                    '--carousel-z': `${translateZ}px`,
+                                    '--carousel-rotate': `${rotateY}deg`,
+                                    '--carousel-z-index': zIndex,
+                                    '--carousel-opacity': opacity
                                 }}
                                 onClick={() => setCurrentIndex(index)}
                             >

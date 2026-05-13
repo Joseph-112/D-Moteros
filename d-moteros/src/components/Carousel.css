@@ -2,11 +2,22 @@
 
 /* Carousel */
 .carousel-section {
-    @apply py-24 bg-zinc-950 text-white overflow-hidden;
+    @apply py-24 bg-zinc-950 text-white overflow-hidden relative;
+}
+
+.carousel-section::before {
+    content: '';
+    @apply absolute inset-0 bg-cover bg-center pointer-events-none transition-all duration-700 ease-in-out;
+    background-image: var(--bg-image);
+    filter: blur(2px) grayscale(100%);
+    opacity: 0.25;
+    z-index: 0;
+    transform: scale(1.1);
+    /* Prevent blur from bleeding out the edges */
 }
 
 .carousel-container {
-    @apply container mx-auto px-4;
+    @apply container mx-auto px-4 relative z-10;
 }
 
 .carousel-header {
@@ -26,6 +37,7 @@
     height: 450px;
     perspective: 1200px;
     transform-style: preserve-3d;
+    touch-action: pan-y; /* Improves swipe gesture handling */
 }
 
 @media (min-width: 768px) {
@@ -37,6 +49,21 @@
 .carousel-item {
     @apply absolute w-60 md:w-80 h-80 md:h-[450px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-700;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    /* Dynamic styles via CSS variables */
+    transform: translateX(var(--carousel-x, 0)) translateZ(var(--carousel-z, 0)) rotateY(var(--carousel-rotate, 0));
+    z-index: var(--carousel-z-index, 1);
+    opacity: var(--carousel-opacity, 1);
+
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-item.active {
+    box-shadow: 0 25px 50px -12px rgba(184, 11, 11, 0.5);
+}
+
+.carousel-item.hidden-item {
+    pointer-events: none;
 }
 
 .carousel-item-img {
@@ -64,7 +91,13 @@
 }
 
 .carousel-btn {
-    @apply bg-zinc-800 hover:bg-red-500 text-white p-3 md:p-4 rounded-full transition-all cursor-pointer shadow-lg hover:shadow-red-500/50;
+    @apply bg-transparent border border-white text-white p-3 md:p-4 rounded-full transition-all cursor-pointer shadow-lg;
+}
+
+.carousel-btn:hover {
+    background-color: #C20600;
+    border-color: #C20600;
+    box-shadow: 0 10px 15px -3px rgba(194, 6, 0, 0.4);
 }
 
 .carousel-btn-icon {
@@ -76,13 +109,19 @@
 }
 
 .carousel-dot {
-    @apply h-3 rounded-full transition-all duration-300 cursor-pointer;
+    @apply h-3 rounded-full transition-all duration-300 cursor-pointer border border-white;
 }
 
 .carousel-dot.active {
-    @apply w-10 bg-red-500;
+    @apply w-10 border-transparent;
+    background-color: #C20600;
 }
 
 .carousel-dot.inactive {
-    @apply w-3 bg-zinc-700 hover:bg-zinc-500;
+    @apply w-3 bg-transparent;
+}
+
+.carousel-dot.inactive:hover {
+    background-color: #C20600;
+    border-color: #C20600;
 }
