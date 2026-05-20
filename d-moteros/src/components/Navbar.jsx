@@ -18,17 +18,30 @@ const Navbar = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const handleScrollToCollections = (e) => {
+        e.preventDefault();
+        const element = document.getElementById('colecciones');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const handleScrollToTop = (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : 'transparent'}`}>
             <div className="navbar-container relative">
-                <a href="#" className="navbar-logo">
+                <a href="#" className="navbar-logo" onClick={handleScrollToTop}>
                     <img src={logo} alt="D'Moteros Logo" className="navbar-logo-img" />
                 </a>
                 
                 {/* Desktop Menu */}
                 <ul className="navbar-menu">
-                    <li><a href="#" className="navbar-link">Inicio</a></li>
-                    <li><a href="#" className="navbar-link">Colecciones</a></li>
+                    <li><a href="#" className="navbar-link" onClick={handleScrollToTop}>Inicio</a></li>
+                    <li><a href="#colecciones" className="navbar-link" onClick={handleScrollToCollections}>Colecciones</a></li>
                 </ul>
 
                 {/* Mobile Menu Button */}
@@ -52,8 +65,8 @@ const Navbar = () => {
             {/* Mobile Menu Sidebar */}
             <div className={`navbar-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
                 <ul className="navbar-mobile-menu-list">
-                    <li><a href="#" className="navbar-mobile-link" onClick={toggleMenu}>Inicio</a></li>
-                    <li><a href="#" className="navbar-mobile-link" onClick={toggleMenu}>Colecciones</a></li>
+                    <li><a href="#" className="navbar-mobile-link" onClick={(e) => { handleScrollToTop(e); toggleMenu(); }}>Inicio</a></li>
+                    <li><a href="#colecciones" className="navbar-mobile-link" onClick={(e) => { handleScrollToCollections(e); toggleMenu(); }}>Colecciones</a></li>
                 </ul>
             </div>
         </nav>

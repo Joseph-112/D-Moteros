@@ -82,8 +82,16 @@
     @apply opacity-0 hover:opacity-50;
 }
 
+.carousel-item-info {
+    @apply p-8 flex flex-col items-start gap-1 w-full;
+}
+
 .carousel-item-title {
-    @apply text-3xl font-black text-white p-8 tracking-wide;
+    @apply text-3xl font-black text-white p-0 tracking-wide;
+}
+
+.carousel-item-cost {
+    @apply text-lg font-bold text-red-500 tracking-wider mt-1 bg-black/40 px-3 py-1 rounded-md backdrop-blur-sm;
 }
 
 .carousel-controls {

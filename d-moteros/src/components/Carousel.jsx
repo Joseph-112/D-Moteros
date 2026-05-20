@@ -8,11 +8,11 @@ import img5 from '../assets/Carousel/producto-3-gothic-red-front-thumb.avif';
 
 const Carousel = () => {
     const images = [
-        { id: 1, url: img1, title: 'Sinner' },
-        { id: 2, url: img2, title: 'Skullface' },
-        { id: 3, url: img3, title: 'Skullface' },
-        { id: 4, url: img4, title: 'Gothic red' },
-        { id: 5, url: img5, title: 'Gothic red' }
+        { id: 1, url: img1, title: 'Hoodie Pecador 777' , cost: '$180.000'},
+        { id: 2, url: img2, title: 'Hoodie Ghost' , cost: '$180.000'},
+        { id: 3, url: img3, title: 'Hoodie Ghost' , cost: '$180.000'},
+        { id: 4, url: img4, title: 'Hoodie Sin City' , cost: '$190.000'},
+        { id: 5, url: img5, title: 'Hoodie Sin City' , cost: '$190.000'}
     ];
 
     const [currentIndex, setCurrentIndex] = useState(1);
@@ -53,7 +53,7 @@ const Carousel = () => {
     };
 
     return (
-        <section className="carousel-section" style={{ '--bg-image': `url(${images[currentIndex].url})` }}>
+        <section id="colecciones" className="carousel-section" style={{ '--bg-image': `url(${images[currentIndex].url})` }}>
             <div className="carousel-container">
                 <div className="carousel-header">
                     <h2 className="carousel-title">Nuestra nueva colección</h2>
@@ -98,7 +98,10 @@ const Carousel = () => {
                             >
                                 <img src={img.url} alt={img.title} className="carousel-item-img" />
                                 <div className={`carousel-item-overlay ${isActive ? 'active' : 'inactive'}`}>
+                                    <div className="carousel-item-info">
                                     <h3 className="carousel-item-title">{img.title}</h3>
+                                       <span className="carousel-item-cost">{img.cost}</span>
+                                    </div>
                                 </div>
                             </div>
                         );

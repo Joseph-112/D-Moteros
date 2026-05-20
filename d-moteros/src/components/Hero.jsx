@@ -1,17 +1,22 @@
 import React from 'react';
 import './Hero.css';
-import heroVideo from '../assets/LandingPage/video.mp4';
+import heroImage from '../assets/LandingPage/stand.jpeg';
 
 const Hero = () => {
+    const handleScrollToCollections = (e) => {
+        e.preventDefault();
+        const element = document.getElementById('colecciones');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <section className="hero-section">
             <div className="hero-bg-container">
-                <video
-                    src={heroVideo}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                <img
+                    src={heroImage}
+                    alt="Stand D'Moteros"
                     className="hero-bg-img"
                 />
                 <div className="hero-bg-overlay"></div>
@@ -24,8 +29,8 @@ const Hero = () => {
                 <p className="hero-description">
                     Lleva tu pasión en cada ruta. Descubre nuestros exclusivos busos y sacos estampados para verdaderos motociclistas.
                 </p>
-                <button className="hero-button">
-                    Explorar Colecciones
+                <button className="hero-button" onClick={handleScrollToCollections}>
+                    Explorar Colección
                 </button>
             </div>
         </section>

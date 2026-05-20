@@ -1,0 +1,399 @@
+/* --- Gallery Section Container --- */
+.galery-section {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+.galery-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- Gallery Wrapper (Supports Fullscreen) --- */
+.galery-wrapper {
+  position: relative;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+/* Fullscreen Mode override */
+.galery-wrapper.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  border-radius: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* --- Top Control Buttons (Share, Fullscreen, Slideshow) --- */
+.galery-controls-top {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+
+.galery-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: 30px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.galery-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333333;
+  border-radius: 50%;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.galery-action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #000000;
+  transform: scale(1.08);
+}
+
+.galery-action-btn:active {
+  transform: scale(0.95);
+}
+
+.galery-action-btn.active {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.galery-action-btn.playing {
+  background-color: rgba(30, 200, 100, 0.15);
+  color: #0d9b48;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Share Tooltip --- */
+.share-menu-container {
+  position: relative;
+}
+
+.share-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+  min-width: 130px;
+  animation: tooltipFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tooltip-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444444;
+  border-radius: 4px;
+  width: 100%;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tooltip-item:hover {
+  background-color: #f5f5f7;
+  color: #000000;
+}
+
+/* --- Main Visualizer Area (Center) --- */
+.galery-main-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60vh;
+  min-height: 380px;
+  max-height: 600px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Adjustments for fullscreen visualizer height */
+.fullscreen .galery-main-display {
+  height: 75vh;
+  max-height: 80vh;
+}
+
+.galery-image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 0px;
+}
+
+/* Smooth Fade and Subtle Zoom animation when swapping image keys */
+@keyframes imageTransition {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.galery-main-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  animation: imageTransition 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+
+/* --- Floating Side Navigation Chevrons --- */
+.galery-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b0b0b5;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.galery-nav-btn:hover {
+  color: #1a1a1a;
+  transform: scale(1.15);
+}
+
+.galery-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.nav-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* --- Active Pointer Indicator chevron --- */
+.galery-active-pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  color: #1a1a1a;
+  margin-top: 5px;
+}
+
+.pointer-icon {
+  width: 20px;
+  height: 20px;
+  animation: hoverUpDown 1.8s infinite ease-in-out;
+}
+
+@keyframes hoverUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* --- Thumbnail Carousel (Bottom) --- */
+.galery-thumbnails-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 5px 0;
+  box-sizing: border-box;
+}
+
+.galery-thumbnails-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex: 1;
+  padding: 10px 4px;
+  /* Hide standard scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.galery-thumbnails-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.galery-thumbnail-item {
+  flex: 0 0 76px;
+  height: 76px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: #f7f7f9;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.galery-thumbnail-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.galery-thumbnail-item:hover .thumbnail-img {
+  transform: scale(1.06);
+}
+
+/* Selected Active Thumbnail state */
+.galery-thumbnail-item.active {
+  border: 2px solid #1a1a1a;
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.galery-thumbnail-item.active .thumbnail-img {
+  transform: scale(1);
+}
+
+/* --- Thumbnail navigation side arrows --- */
+.galery-thumbs-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a0a0a5;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.galery-thumbs-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: #1a1a1a;
+}
+
+.thumbs-arrow-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .galery-section {
+    padding: 20px 0;
+  }
+  
+  .galery-main-display {
+    height: 45vh;
+    min-height: 280px;
+  }
+  
+  .galery-nav-btn {
+    width: 36px;
+  }
+  
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .galery-thumbnail-item {
+    flex: 0 0 62px;
+    height: 62px;
+  }
+  
+  .galery-action-buttons {
+    padding: 4px 8px;
+  }
+  
+  .galery-action-btn {
+    width: 30px;
+    height: 30px;
+  }
+}

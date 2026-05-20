@@ -9,8 +9,19 @@
     @apply absolute inset-0 z-0;
 }
 
+/* Custom Zoom Animation for static Hero Background Image */
 .hero-bg-img {
-    @apply w-full h-full object-cover;
+  @apply w-full h-full object-cover;
+  animation: ken-burns 25s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
 }
 
 .hero-bg-overlay {
