@@ -282,6 +282,7 @@
 }
 
 .galery-thumbnails-list {
+  position: relative;
   display: flex;
   gap: 12px;
   overflow-x: auto;

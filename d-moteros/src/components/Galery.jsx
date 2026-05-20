@@ -18,14 +18,26 @@ const Galery = () => {
   const galleryRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
   const activeThumbnailRef = useRef(null);
+  const isFirstRender = useRef(true);
 
   // Auto scroll active thumbnail into center of the thumbnail row
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (activeThumbnailRef.current && thumbnailsContainerRef.current) {
-      activeThumbnailRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center"
+      const container = thumbnailsContainerRef.current;
+      const thumbnail = activeThumbnailRef.current;
+      const containerWidth = container.clientWidth;
+      const thumbnailWidth = thumbnail.clientWidth;
+      const thumbnailLeft = thumbnail.offsetLeft;
+      
+      const targetScrollLeft = thumbnailLeft - (containerWidth / 2) + (thumbnailWidth / 2);
+      
+      container.scrollTo({
+        left: targetScrollLeft,
+        behavior: "smooth"
       });
     }
   }, [currentIndex]);
